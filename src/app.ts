@@ -2,10 +2,10 @@ import express from 'express';
 import routes from './routes';
 
 class App {
-    #express: express.Application
+    public express: express.Application
 
     constructor() {
-        this.#express = express()
+        this.express = express()
 
         this.database()
         this.routes()
@@ -17,6 +17,8 @@ class App {
     }
 
     private routes(): void {
-        this.#express.use(routes)
+        this.express.use(routes)
     }
 }
+
+export default new App().express
