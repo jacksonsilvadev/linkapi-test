@@ -24,13 +24,15 @@ class App {
         this.express.use(errorLogger)
     }
 
+
     private static async database(): Promise<void> {
         try {
             logger.info('Starting Database.')
-            mongoose.connect(config.mongoose.url, config.mongoose.options)
+            await mongoose.connect(config.mongoose.url, config.mongoose.options)
             logger.info('Connected on MongoDB.')
         } catch (e) {
-            logger.error(e)
+            logger.error('Connection not established: ')
+            throw new Error(e)
         }
 
     }
