@@ -1,10 +1,13 @@
 import app from './app';
+import config from './config/config'
 import logger from './utils/logger'
 
-console.log(process.env)
+const PORT = config.server.port
 
-const PORT = process.env.NODE_PORT
-
-app.listen(PORT, () => {
-    logger.info(`🚀 Aplicação iniciada na porta ${PORT} com sucesso!`)
+app.init().then((server) => {
+    server.listen(PORT, () => {
+        logger.info(`🚀 Application running on port: ${PORT}!`)
+    })
+}).catch((err) => {
+    logger.error(err)
 })

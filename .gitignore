@@ -117,3 +117,6 @@ dist
 
 # Remove build folder from typescript compilation
 build
+dist
+
+*.pdf
