@@ -115,5 +115,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Remove build folder
+# Remove build folder from typescript compilation
 build
