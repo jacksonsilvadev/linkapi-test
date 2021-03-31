@@ -1,5 +1,10 @@
 import app from './app';
+import logger from './utils/logger'
 
-app.listen(3000, () => {
-    console.log("started")
+console.log(process.env)
+
+const PORT = process.env.NODE_PORT
+
+app.listen(PORT, () => {
+    logger.info(`🚀 Aplicação iniciada na porta ${PORT} com sucesso!`)
 })
