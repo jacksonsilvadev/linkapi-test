@@ -26,15 +26,9 @@ class App {
 
 
     private static async database(): Promise<void> {
-        try {
-            logger.info('Starting Database.')
-            await mongoose.connect(config.mongoose.url, config.mongoose.options)
-            logger.info('Connected on MongoDB.')
-        } catch (e) {
-            logger.error('Connection not established: ')
-            throw new Error(e)
-        }
-
+        logger.info('Starting Database.')
+        await mongoose.connect(config.mongoose.url, config.mongoose.options)
+        logger.info('Connected on MongoDB.')
     }
 
     private routes(): void {

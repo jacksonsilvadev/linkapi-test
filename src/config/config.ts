@@ -11,9 +11,15 @@ const config = {
         url: process.env.MONGODBURL || "",
         options: {
             useUnifiedTopology: true,
-            useNewUrlParser: true,
-            user: process.env.MONGODBUSER,
-            password: process.env.MONGODBPASSWORD
+            useNewUrlParser: true
+        }
+    },
+    integrations: {
+        bling: {
+            token: process.env.BLING_TOKEN || ''
+        },
+        pipedrive: {
+            token: process.env.PIPEDRIVE_TOKEN || ''
         }
     }
 }

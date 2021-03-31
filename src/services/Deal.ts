@@ -7,6 +7,12 @@ class DealService {
 
         return data
     }
+
+    public async getByDealId(id: number): Promise<any> {
+        const {data} = await PipedriveIntegration.getProductsByDealId(id)
+
+        return data
+    }
 }
 
 export default new DealService()

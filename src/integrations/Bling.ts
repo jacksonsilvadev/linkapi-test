@@ -1,17 +1,18 @@
 import axios from 'axios'
+import config from '../config/config'
 
-class PipedriveIntegration {
+class BlingIntegration {
     API_TOKEN: string
 
     constructor() {
-        this.API_TOKEN = '4253815718dce9df1b8eca1057b4205b362b12c4'
+        this.API_TOKEN = config.integrations.bling.token
     }
 
-    public async getWonDeals() {
-        const {data} = await axios.get(`https://api.pipedrive.com/v1/deals?status=won&start=0&api_token=${this.API_TOKEN}`)
+    public async createOder(xml: string) {
+        const {data} = await axios.post(`https://bling.com.br/Api/v2/pedido/json?apikey=${this.API_TOKEN}&xml=${xml}`)
 
         return data
     }
 }
 
-export default new PipedriveIntegration()
+export default new BlingIntegration()

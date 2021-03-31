@@ -1,14 +1,21 @@
 import axios from 'axios'
+import config from '../config/config'
 
 class PipedriveIntegration {
     API_TOKEN: string
 
     constructor() {
-        this.API_TOKEN = '4253815718dce9df1b8eca1057b4205b362b12c4'
+        this.API_TOKEN = config.integrations.pipedrive.token
     }
 
     public async getWonDeals() {
         const {data} = await axios.get(`https://api.pipedrive.com/v1/deals?status=won&start=0&api_token=${this.API_TOKEN}`)
+
+        return data
+    }
+
+    public async getProductsByDealId(id: number) {
+        const {data} = await axios.get(`https://api.pipedrive.com/v1/deals/${id}/products?api_token=${this.API_TOKEN}`)
 
         return data
     }
