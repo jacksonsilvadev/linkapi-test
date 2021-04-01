@@ -5,6 +5,7 @@ import routes from './routes';
 import logger from './utils/logger'
 import config from './config/config'
 import errorLogger from './logger/error-logger'
+import RouteMiddleware from './middlewares/Route'
 import CreateOrderJob from './jobs/CreateOrder'
 
 class App {
@@ -18,6 +19,7 @@ class App {
         logger.info('Starting Middlewares')
         this.express.use(express.json());
         this.express.use(cors())
+        this.express.use(RouteMiddleware)
     }
 
     private logger(): void {

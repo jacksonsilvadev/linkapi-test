@@ -1,10 +1,9 @@
-import {Router, Request, Response} from 'express';
-import DealController from "./controllers/Deal";
+import {Router} from 'express';
+import OrderController from "./controllers/Order"
 
 const routes = Router()
 
-routes.get('/', DealController.get)
 
-routes.post('/order/job', DealController.get)
+routes.post('/order/job', OrderController.post)
 
 export default routes

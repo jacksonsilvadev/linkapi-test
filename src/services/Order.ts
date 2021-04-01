@@ -1,8 +1,7 @@
 import DealService from './Deal'
-
-import {OrderTimeline} from "../schemas/OrderTimeline";
+import {OrderTimeline, OrderTimelineModel} from "../schemas/OrderTimeline";
 import BlingService from "./Bling";
-
+import logger from '../utils/logger'
 
 class OrderService {
     public async getIdOrdersWithOutSaveByDealId(ids: number[]) {
@@ -15,7 +14,7 @@ class OrderService {
         return ids.filter((id: number) => !dealIds.includes(id))
     }
 
-    public async createOrder(deal: any, order: any, newValue?: number): Promise<any> {
+    public async createOrder(deal: any, order: any, newValue?: number): Promise<OrderTimelineModel> {
         return OrderTimeline.create({
             dealId: deal.id,
             number: order.numero,
@@ -27,7 +26,15 @@ class OrderService {
 
     public async startDealRegisterOperation(): Promise<any> {
         const deals = await DealService.getUnregisteredDeals()
-        const promises = deals.map((deal: any) => BlingService.createOrder((deal)))
+
+        if (!deals.length) {
+            logger.info(`No new integration available has been entered`)
+            return
+        }
+        const promises = deals.map((deal: any) => {
+            logger.info(`Started Integration for Deal ${deal.id}`)
+            return BlingService.createOrder((deal))
+        })
 
         return Promise.all(promises)
     }

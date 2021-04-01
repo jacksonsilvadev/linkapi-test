@@ -1,17 +1,14 @@
 import {Request, Response} from "express";
 import logger from '../utils/logger'
-import DealService from '../services/Deal'
-import BlingService from "../services/Bling";
+import OrderService from '../services/Order'
 
 class OrderController {
     public async post(req: Request, res: Response): Promise<Response> {
         try {
-            const deals = await DealService.getUnregisteredDeals()
-            const promises = deals.map((deal: any) => BlingService.createOrder((deal)))
-
-            await Promise.all(promises)
-
-            return res.json(true)
+            await OrderService.startDealRegisterOperation()
+            return res.json({
+                status: true
+            })
         } catch (err) {
             logger.error(err)
 
