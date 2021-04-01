@@ -2,6 +2,8 @@ import DealService from './Deal'
 import {OrderTimeline, OrderTimelineModel} from "../schemas/OrderTimeline";
 import BlingService from "./Bling";
 import logger from '../utils/logger'
+import {Deal} from '../interfaces/Pipedrive/Deal';
+import {Order} from '../interfaces/Bling/Order';
 
 class OrderService {
     public async getIdOrdersWithOutSaveByDealId(ids: number[]) {
@@ -14,7 +16,7 @@ class OrderService {
         return ids.filter((id: number) => !dealIds.includes(id))
     }
 
-    public async createOrder(deal: any, order: any, newValue?: number): Promise<OrderTimelineModel> {
+    public async createOrder(deal: Deal, order: Order, newValue?: number): Promise<OrderTimelineModel> {
         return OrderTimeline.create({
             dealId: deal.id,
             number: order.numero,
@@ -24,14 +26,15 @@ class OrderService {
         })
     }
 
-    public async startDealRegisterOperation(): Promise<any> {
+    public async startDealRegisterOperation(): Promise<OrderTimelineModel[] | void> {
         const deals = await DealService.getUnregisteredDeals()
 
         if (!deals.length) {
             logger.info(`No new integration available has been entered`)
             return
         }
-        const promises = deals.map((deal: any) => {
+
+        const promises = deals.map((deal: Deal) => {
             logger.info(`Started Integration for Deal ${deal.id}`)
             return BlingService.createOrder((deal))
         })
@@ -39,7 +42,7 @@ class OrderService {
         return Promise.all(promises)
     }
 
-    public async getTotalOrdersByDays(): Promise<any> {
+    public async getTotalOrdersByDays(): Promise<{ _id: Date; amount: number; }[]> {
         return OrderTimeline.aggregate([
             {
                 $group: {
@@ -49,7 +52,7 @@ class OrderService {
                             format: "%Y-%m-%d"
                         }
                     },
-                    totalAmount: {$sum: '$value'},
+                    amount: {$sum: '$value'},
                 }
             },
             {$sort: {count: 1}}
