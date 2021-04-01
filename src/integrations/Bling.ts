@@ -9,9 +9,17 @@ class BlingIntegration {
     }
 
     public async createOder(xml: string) {
+
         const {data} = await axios.post(`https://bling.com.br/Api/v2/pedido/json?apikey=${this.API_TOKEN}&xml=${xml}`)
 
-        return data
+        // Custom Error exception by API
+        if (data.retorno.erros) {
+            const error = data.retorno.erros.pop()
+            throw new Error(error.erro.msg)
+        } else {
+            return data.retorno.pedidos.pop()
+        }
+
     }
 }
 

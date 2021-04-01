@@ -5,7 +5,7 @@ const transport = {
     file: new transports.File({filename: 'error.log', level: 'error'})
 };
 
-const {combine, colorize, timestamp, prettyPrint, errors, json} = format;
+const {combine, timestamp, prettyPrint, errors, json} = format;
 
 const logger = createLogger({
     format: combine(

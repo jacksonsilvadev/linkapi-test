@@ -5,4 +5,6 @@ const routes = Router()
 
 routes.get('/', DealController.get)
 
+routes.post('/order/job', DealController.get)
+
 export default routes

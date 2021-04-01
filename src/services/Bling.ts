@@ -1,6 +1,7 @@
 import BlingIntegration from '../integrations/Bling'
 import MoneyIntegration from '../integrations/Money'
 import DealService from './Deal'
+import OrderService from './Order'
 
 import {parse} from 'js2xmlparser'
 
@@ -64,7 +65,11 @@ class BlingService {
             })
 
             // Send to Bling
-            const {data} = await BlingIntegration.createOder(xml)
+            const data = await BlingIntegration.createOder(xml)
+            const order = data.pedido
+
+            // Create report data
+            await OrderService.createOrder(deal, order, value)
 
             return data
         } catch (e) {
