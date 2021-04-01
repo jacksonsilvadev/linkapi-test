@@ -75,19 +75,22 @@ $ npm run start
 
 ```
 
-<p align="center">
-  <a href="https://www.postman.com/collections/31f1ccec4139cab381b2" target="_blank"><img src="https://run.pstmn.io/button.svg" alt="Run in Postman"></a>
-</p>
-
 ---
 
 ## 🛠 Tecnologias
 
 - **[Express](https://expressjs.com/)**
+- **[Axios](https://github.com/axios/axios)**
+- **[js2xmlparser](https://github.com/michaelkourlas/node-js2xmlparser#readme)**
+- **[Node-Cron](https://github.com/node-cron/node-cron)**
+- **[Winston](https://github.com/winstonjs/winston)**
 - **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
 - **[Mongoose](https://mongoosejs.com/)**
-- **[ts-node](https://github.com/TypeStrong/ts-node)**
 - **[dotENV](https://github.com/motdotla/dotenv)**
+
+
+- **[Typescript](https://www.typescriptlang.org/)**
+- **[Eslint](https://eslint.org/)**
 
 ---
 
@@ -104,9 +107,9 @@ Para fazer o sistema de integração foi criado um cron job, ele é executado a 
 
 *_Na aplicação do Pipedrive você inputa, vários tipos de moedas e no Bling não temos essa opção.(Não que eu tenha
 achado)
-Para resolver esse problema, eu fiz integração com uma - **[API free](https://www.currencyconverterapi.com/)** que me
-retorna o valor da moeda de uma para outra, e através disso eu calculo para saber o valor em real e enviar esse valor
-para o Bling._
+Para resolver esse problema, eu fiz integração com uma  **[API free](https://www.currencyconverterapi.com/)** que me
+retorna o valor da moeda de uma para outra, e através disso calculo para saber o valor em real e enviar esse valor para
+o Bling._
 *_Foi criado uma rota para inicialização do job manual, caso necessário._
 
 Como descrito na lista de tarefas o endpoint para receber o valor dos pedidos processados acumulado por dia. (Foi o meu
@@ -117,6 +120,11 @@ entendimento)
 * Utilizei o $sum no value, para que ele acumulasse o valor conforma o grupo das datas.
 * Finalizei utilizando o $sort para ordernar por maior valor.
 
+<p align="center">
+  <a href="https://www.postman.com/collections/31f1ccec4139cab381b2" target="_blank"><img src="https://run.pstmn.io/button.svg" alt="Run in Postman"></a>
+</p>
+---
+
 ## Referências
 
 $group: https://docs.mongodb.com/manual/reference/operator/aggregation/group/
@@ -124,8 +132,6 @@ $group: https://docs.mongodb.com/manual/reference/operator/aggregation/group/
 $dateToString: https://docs.mongodb.com/manual/reference/operator/aggregation/dateToString/
 
 Readme: https://github.com/tgmarinho/README-ecoleta/blob/master/README-sem-logo.md
-
----
 
 ## 🦸 Autor
 
