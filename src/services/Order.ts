@@ -38,6 +38,23 @@ class OrderService {
 
         return Promise.all(promises)
     }
+
+    public async getTotalOrdersByDays(): Promise<any> {
+        return OrderTimeline.aggregate([
+            {
+                $group: {
+                    _id: {
+                        $dateToString: {
+                            date: "$createdAt",
+                            format: "%Y-%m-%d"
+                        }
+                    },
+                    totalAmount: {$sum: '$value'},
+                }
+            },
+            {$sort: {count: 1}}
+        ])
+    }
 }
 
 export default new OrderService()

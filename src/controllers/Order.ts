@@ -18,6 +18,21 @@ class OrderController {
             })
         }
     }
+
+    public async getTotalOrdersByDays(req: Request, res: Response): Promise<Response> {
+        try {
+            const data = await OrderService.getTotalOrdersByDays()
+            return res.json(data)
+
+        } catch (err) {
+            logger.error(err)
+
+            return res.json({
+                code: err.code,
+                message: err.message
+            })
+        }
+    }
 }
 
 export default new OrderController()
